@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SGD-ITS Arminda Faria</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'DataTables/datatables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Navbar-Centered-Links-icons.css' %}">
+</head>
+
+<body>
+{% block navegacao %}
+{% if request.user.is_authenticated %}
+    {% if user.groups.all.0.name == "admin" %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fa fa-home"></i><strong>Inicio</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-certificado' %}"><strong>Certificado</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}"><strong>Declaração</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-historico' %}"><strong>Histórico</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}"><strong>Petição</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'criar-conta' %}"><i class="fa fa-plus"></i><strong> Criar Conta</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-perfis' %}"><i class=""></i><strong> Perfis</strong></a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fa fa-home"></i><strong>Inicio</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-certificado' %}"><strong>Certificado</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}"><strong>Declaração</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-historico' %}"><strong>Histórico</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}"><strong>Petição</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><i class=""></i><strong> Perfil</strong></a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></i></a>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+{% else %}
+<nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fa fa-home"><strong>Inicio</strong></i></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'login' %}">Entrar <i class="fa fa-door-open"></i></a>
+                </div>
+            </div>
+        </nav>
+{% endif %}
+{% endblock %}
+{% block imagem %}
+     <header class="text-center text-white masthead" style="background:url({% static 'assets/img/img1.jpg' %})no-repeat center center;background-size:cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto position-relative">
+                    <h1 class="mb-0">INSTITUTO TÉCNICO DE SAÚDE <br>ARMINDA FARIA</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <br>
+{% endblock %}
+{% block dados %}
+    <section class="text-center bg-light features-icons">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-layers m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>Processos<br> Para Busca</h3>
+                        <p class="lead mb-0"><h2>{{ busca }}</h2></p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-screen-desktop m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>Processos <br>Por Digitalizar</h3>
+                        <p class="lead mb-0"><h2>{{ digitalizado }}</h2></p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="mx-auto features-icons-item mb-5 mb-lg-0 mb-lg-3">
+                        <div class="d-flex features-icons-icon"><i class="icon-check m-auto text-primary" data-bss-hover-animate="pulse"></i></div>
+                        <h3>Processos <br>Concluidos</h3>
+                        <p class="lead mb-0"><h2>{{ concluido }}</h2></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+{% endblock %}
+{% block conteudo %}
+    <section class="showcase">
+        <div class="container-fluid">
+            <div class="row g-0">
+                <div class="col-lg-6 text-white order-lg-2 showcase-img" style="background-image:url(&quot;{% static 'assets/img/img5.jpg' %}&quot;);"><span></span></div>
+                <div class="col-lg-6 my-auto order-lg-1 showcase-text">
+                    <h2>O que é o SGD-ITS</h2>
+                    <p class="lead mb-0 text-justify">O <span class="text-primary">Sistema de Gestão de Documentos do Instituto Técnico de Saúde Arminda Faria</span>, é uma aplicação web com a finalidade de agilizar o processo de gestão de documentos no ITS Arminda Faria.</p>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-lg-6 text-white showcase-img" style="background-image:url(&quot;{% static 'assets/img/img4.jpg' %}&quot;);"><span></span></div>
+                <div class="col-lg-6 my-auto order-lg-1 showcase-text">
+                    <h2>Utilização</h2>
+                    <p class="lead mb-0">O SGD-ITS é uma aplicação web fácil, interactiva e simples de se utilizar. Aqui podemos cadastrar os mais diversos documentos
+                        que os utentes dão entrada na Secretária Geral do instituto, documentos estes como solicitações de <span class="text-primary">Certificados, Declarações, Histórico de Notas</span> e outros.
+                    </p>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-lg-6 text-white order-lg-2 showcase-img" style="background-image:url(&quot;{% static 'assets/img/img1.jpg' %}&quot;);"><span></span></div>
+                <div class="col-lg-6 my-auto order-lg-1 showcase-text">
+                    <h2>Campo de Atuação</h2>
+                    <p class="lead mb-0">Esta aplicação é de uso único e exclusivo da Secretaria Geral do ITS Arminda Faria, não pode de ser usada fora do departamento citado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="text-center bg-light testimonials">
+        <div class="container">
+            <h2 class="mb-5">ESTRUTURA ORGANIZACIONAL</h2>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{% static 'assets/img/img1.jpg' %}">
+                        <h5>Armindo Enresto Binge</h5>
+                        <p class="font-weight-light mb-0">Chefe da Secretária Geral</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{% static 'assets/img/img1.jpg' %}">
+                        <h5>Neide João</h5>
+                        <p class="font-weight-light mb-0">Técnica de Secretária</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{% static 'assets/img/img1.jpg' %}">
+                        <h5>Luís Kiazemba</h5>
+                        <p class="font-weight-light mb-0">Técnico de Secretária</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="mx-auto testimonial-item mb-5 mb-lg-0"><img class="rounded-circle img-fluid mb-3" src="{% static 'assets/img/img1.jpg' %}">
+                        <h5>Adriana Alberto</h5>
+                        <p class="font-weight-light mb-0">Técnica de Secretária</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block rodape %}
+    <section class="text-center text-white call-to-action" style="background:url(&quot;{% static 'assets/img/bg-masthead.jpg' %}&quot;) no-repeat center center;background-size:cover;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto position-relative">
+                    <h2 class="mb-4"><h1 class="mb-5">INSTITUTO TÉCNICO DE SAÚDE <br>ARMINDA FARIA</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-light footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center text-lg-start my-auto h-100">
+                    <ul class="list-inline mb-2 text-center">
+                        <li class="list-inline-item"><a href="#">Sobre</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Contactos</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Termos de&nbsp;Responsabilidade</a></li>
+                        <li class="list-inline-item"><span>⋅</span></li>
+                        <li class="list-inline-item"><a href="#">Politicas de Privacidade</a></li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0 text-center">© ITS 2023. Todos os Direitos Reservados.</p>
+                    <p class="text-muted small mb-4 mb-lg-0  text-center">Desenvolvido por Benedito PS e Ariel Morais.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/bold-and-dark.js' %}"></script>
+    <script src="{% static 'assets/js/bs-init.js' %}"></script>
+    <script src="{% static 'DataTables/datatables.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+<script>
+    $(document).ready(function(){
+      $("#tabela").DataTable({
+        responsive:true,
+        "aaSorting":[],
+        "language":{
+            "decimal":"",
+            "emptyTable":"Sem dados disponíveis",
+            "info":"Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "infoFiltered":"(Filtrando de _MAX_ registros no total)",
+            "infoPostFix":"",
+            "thousands":",",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "loadingRecords":"A carregar dados...",
+            "processing":"A processar",
+            "search":"Procurar:",
+            "zeroRecords":"Não foram encontrados resultados",
+            "paginate":{
+                "first":"Primeiro",
+                "last":"Último",
+                "next":"Próximo",
+                "previous":"Anterior",
+            },
+            "aria":{
+                "sortAscending":"ordem crescente",
+                "sortDescending":"ordem decrescente"
+            }
+        }
+      });
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block navegacao%}
+{% if user.groups.all.0.name == "admin" %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i><strong>Inicio</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-certificado' %}"><strong>Certificado</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}"><strong>Declaração</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-historico' %}"><strong>Histórico</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}"><strong>Petição</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'criar-conta' %}"><i class="fa fa-plus"></i><strong> Criar Conta</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-perfis' %}"><strong>Perfis</strong></a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i><strong>Inicio</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-certificado' %}"><strong>Certificado</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}"><strong>Declaração</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-historico' %}"><strong>Histórico</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}"><strong>Petição</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'perfil' %}"><strong>Perfil</strong></a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+{% endblock %}
+
+{% block imagem %}
+{% endblock %}
+
+{% block dados%}
+
+{% endblock %}
+
+{% block conteudo %}
+<div class="container-fluid">
+    <br>
+    <br>
+    <br>
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">DECLARAÇÃO</h3>
+        <hr>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-6 mb-4">
+            <div class="card shadow border-start-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <form method="post" action=".">
+                            {% csrf_token %}
+                
+                            {{ form|crispy }}
+                                <hr>
+                                <button class="btn btn-primary d-block btn-user w-10" type="submit">
+                                    salvar <i class="fa fa-plus"></i>
+                                </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-6 mb-4">
+            <div class="card shadow border-start-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        {% for dados in dados %}
+                        <h3>Documento Levantado</h3>
+                        <hr>
+                       <span><strong>NOME: </strong>{{ dados.nome_utente }}</span>
+                       <br>
+                       <br>
+                        <span><strong>DATA: </strong>{{ dados.data }}</span>
+                        <br>
+                        <br>
+                        <span><strong>PARENTESCO: </strong>{{ dados.parentesco }}</span>
+                        <br>
+                        <br>
+                        <span><strong>FUNCIONARIO: </strong>{{ dados.funcionario }}</span>
+                        <br>
+                        <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

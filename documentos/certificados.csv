@@ -1,0 +1,6 @@
+,id,nome_utente,quantidade,observacao,nota,estado,funcionario_id,bi,data
+0,1,António Manuel,1,Secretária,Nenhuma,Digitalizado,1,007289988LA048,2023-12-10 20:11:08.625838
+1,2,Benedito,1,Sistema,Nenhuma,Concluido,1,23333333333333,2023-12-10 20:13:23.030160
+2,3,Manuel,1,Sistema,Nenhuma,Busca,3,007289988LA048,2023-12-12 08:17:00.716351
+3,4,Agira,1,Secretária,Nenhuma,Concluido,3,23333333333333,2023-12-12 08:17:00.716351
+4,5,Neide João,1,Sistema,Nome do pai está errado.,Concluido,3,007289988LA045,2023-12-12 08:17:00.716351

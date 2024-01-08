@@ -1,0 +1,104 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block navegacao%}
+{% if user.groups.all.0.name == "admin" %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i>Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'listar-certificado' %}">Certificado</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}">Declaração</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}">Petição</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus"></i> Criar Conta</a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <nav class="navbar navbar-light navbar-expand-md py-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}"><span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                    <i class="fa fa-microscope"></i></span><span>ITS</span>
+                </a>
+                        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-3">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i>Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-certificado' %}">Certificado</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-declaracao' %}">Declaração</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'listar-peticao' %}">Petição</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'perfil' %}">Perfil</a></li>
+                    </ul>
+                    <a class="btn btn-primary" type="button" href="{% url 'logout' %}">{{request.user}} <i class="fa fa-user"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+{% endblock %}
+
+{% block imagem %}
+{% endblock %}
+
+{% block dados%}
+
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="container"  id="conteudo">
+    <br>
+    <br>
+    <br>
+    <h3 class="title">Meu Perfil</h3>
+    <hr>
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+
+{% for Perfil in object_list %}
+
+            <div class="col-md-6">
+                <div class="col-md-12">
+                    <img src = "{{ Perfil.imagem.url }}"  class = "img-fluid mx-auto d-block rounded">
+                </div>
+                <div class="col-md-12" id="perfil">
+                    <h4 class="title text-center">{{ Perfil.usuario }}</h4>
+                    <hr>
+                    <p>
+                        <span>Nome Completo: </span>{{ Perfil.nome }}<br>
+                        <span>BI: </span> {{ Perfil.bi }}<br>
+                        <span>Contacto Principal: </span>{{ Perfil.contato1 }}<br>
+                        <span>Contacto Alternativo: </span>{{ Perfil.contato2 }}<br>
+                    </p>
+                </div>
+                <a href="{% url 'alterar-perfil' Perfil.pk %}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Editar">
+                    <i class="fa fa-edit"></i>
+                </a>    
+            </div>
+
+    {% empty %}
+
+            <div class="col-md-4">
+                Sem dados.
+            </div>
+
+    {% endfor %}
+
+            <div class="col-md-3">
+
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
+    <br>
+</div>
